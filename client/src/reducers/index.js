@@ -1,4 +1,8 @@
-import {combineReducers} from 'redux';
-import {reducer as reduxForm} from 'redux-form';
+import { combineReducers } from 'redux';
+import GameListReducer from './reducer_game_list';
 
-export default combineReducers({})
+const rootReducer = combineReducers({
+    gamelist: GameListReducer
+});
+
+export default rootReducer;
