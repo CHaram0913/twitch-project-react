@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-// import { withStyles } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import { Paper, Tabs } from 'material-ui';
 import { Tab } from 'material-ui/Tabs';
-// import { topMenuStyles } from './../styles/top_menu_styles';
+import { topMenuStyles } from './../styles/top_menu_styles';
 
 import { streamerArrayKR } from './../resource/streamerArray';
 import { streamSelect } from './../actions/index';
@@ -24,15 +24,19 @@ class TopMenu extends Component {
     }
 
     render() {
+        const { classes } = this.props;
+        console.log(classes);
         return (
-            <Paper>
+            <Paper className={classes.root}>
                 <Tabs
                     value={this.state.index}
                     onChange={this.onSelection}
+                    indicatorColor="#FFEBEE"
                     centered
+                    className={classes.tabs}
                 >
                     {streamerArrayKR.map(streamers => 
-                        <Tab key={streamers} label={streamers} />
+                        <Tab key={streamers} label={streamers} className={classes.tab} />
                     )}
                 </Tabs>      
             </Paper>
@@ -40,4 +44,4 @@ class TopMenu extends Component {
     }
 }
 
-export default connect (null, {streamSelect}) (TopMenu);
+export default withStyles (topMenuStyles) (connect (null, {streamSelect}) (TopMenu));

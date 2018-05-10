@@ -11,7 +11,4 @@ export const topMenuStyles = {
     tab: {
         fontFamily: 'Roboto, sans-serif',
     },
-    avatar: {
-        margin: 5,
-    }
 };
