@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
 import { Paper, Tabs } from 'material-ui';
 import { Tab } from 'material-ui/Tabs';
-import { topMenuStyles } from './../styles/top_menu_styles';
+import topMenuStyles from './../styles/top_menu_styles';
 
 import { streamerArrayKR } from './../resource/streamerArray';
 import { streamSelect } from './../actions/index';
@@ -25,7 +25,6 @@ class TopMenu extends Component {
 
     render() {
         const { classes } = this.props;
-        console.log(classes);
         return (
             <Paper className={classes.root}>
                 <Tabs

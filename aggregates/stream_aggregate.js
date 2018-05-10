@@ -38,8 +38,9 @@ const each_stream_aggregate = (start_time) => {
         {
             $project : {
                 count : '$count',
-                at_time : '$at_time',
-                game_art : '$game_art'
+                start_time : '$start_game_time',
+                game_art : '$game_art',
+                at_time : '$at_time'     
             }
         }
     ];

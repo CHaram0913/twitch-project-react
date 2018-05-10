@@ -1,0 +1,1 @@
+export default ['all', 'month', 'week', 'day'];

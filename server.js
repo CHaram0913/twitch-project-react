@@ -16,9 +16,10 @@ const CONFIGS = process.env.ENV === 'prod' ?
 const { LogSchema } = require('./models/LogSchema');
 
 // Aggregation Pipelines
+const { start_end_time_aggregate } = require('./aggregates/start_end_time_aggregate');
 const { game_list_aggregate } = require('./aggregates/game_list_aggregate');
 const { each_stream_aggregate } = require('./aggregates/stream_aggregate');
-const { start_end_time_aggregate } = require('./aggregates/start_end_time_aggregate')
+const { game_list_aggregate_exception } = require('./aggregates/game_list_aggregate_exception');
 
 // Query Helper Functions
 const { getStartTimeComp } = require('./query_helper/get_start_time_comparison');
@@ -92,6 +93,13 @@ app.get('/gamelist/:collectionName/:mode', async (req, res) => {
         let docs = await List.aggregate(game_list_aggregate(start_time_comparison));
         if (docs[0]) {
             res.send(docs);
+        } else if (!docs[0] && mode === 'day'){
+            let startEndTimes = await List.aggregate(start_end_time_aggregate);
+            let streamStartTimeArray = sort_stream_time(startEndTimes);
+            let mostRecentStream = streamStartTimeArray[streamStartTimeArray.length - 1];
+            let docs_recent_stream = await List.aggregate(game_list_aggregate_exception(mostRecentStream));
+            
+            res.send(docs_recent_stream);
         } else {
             throw new Error ('Cannot find matching data');
         }

@@ -1,4 +1,5 @@
-export const topMenuStyles = {
+export default 
+{
     root: {
         flexGrow: 1,
     },

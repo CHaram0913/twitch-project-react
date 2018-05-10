@@ -1,4 +1,4 @@
-import { FETCH_GAME_STAT } from './../actions/index';
+import { FETCH_GAME_STAT } from './../actions/types';
 
 export default function(state = {}, action) {
     switch (action.type) {
