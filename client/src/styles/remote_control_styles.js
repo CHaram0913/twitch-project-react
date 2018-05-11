@@ -1,4 +1,9 @@
 export default (theme) => ({
+    scrollTopButton: {
+        position: 'fixed',
+        right: '85px',
+        bottom: '15px'
+    },
     remoteButton: {
         position: 'fixed',
         right: '15px',

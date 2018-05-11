@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchStreamStat } from './../actions/index';
 
 class StreamStat extends Component {
-    componentDidMount() {
-        this.props.fetchStreamStat(this.props.streamerName);
-    }
-
     render() {
-        console.log(this.props.streamerName);
+        const { streamlist } = this.props;
+        if (!streamlist) {
+            return <div>Fetching streamlist...</div>;
+        }
+        console.log(this.props.streamlist.data);
         return (
             <div>
                 Stream Stat
@@ -29,9 +28,8 @@ A dis turpis praesent purus dolor a, pede a justo vel molestie a, leo vel vel ur
 
 function mapStateToProps(state) {
     return {
-        streamlist : state.streamlist,
-        streamerName : state.streamerName
+        streamlist : state.streamlist
     }
 }
 
-export default connect (mapStateToProps, { fetchStreamStat }) (StreamStat);
+export default connect (mapStateToProps) (StreamStat);

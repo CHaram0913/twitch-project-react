@@ -25,6 +25,8 @@
   },
   "homepage": "https://github.com/serendipity1004/MERN-portfolio-materialui#readme",
   "dependencies": {
+    "@material-ui/icons": "^1.0.0-beta.43",
+    "@nivo/pie": "^0.33.0",
     "body-parser": "^1.18.2",
     "dotenv": "^5.0.1",
     "express": "^4.16.2",

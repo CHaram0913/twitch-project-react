@@ -7,7 +7,7 @@ import { Tab } from 'material-ui/Tabs';
 import topMenuStyles from './../styles/top_menu_styles';
 
 import { streamerArrayKR } from './../resource/streamerArray';
-import { streamSelect } from './../actions/index';
+import { streamSelect, fetchStreamStat, fetchGameStat } from './../actions/index';
 
 class TopMenu extends Component {
     constructor(props) {
@@ -21,6 +21,8 @@ class TopMenu extends Component {
     onSelection(event, value) {
         this.props.streamSelect(value);
         this.setState({ index : value });
+        this.props.fetchStreamStat(this.props.streamerName);
+        this.props.fetchGameStat(this.props.streamerName, this.props.mode);
     }
 
     render() {
@@ -43,4 +45,11 @@ class TopMenu extends Component {
     }
 }
 
-export default withStyles (topMenuStyles) (connect (null, {streamSelect}) (TopMenu));
+function mapStateToProps(state) {
+    return {
+        streamerName : state.streamerName,
+        mode : state.mode
+    }
+}
+
+export default withStyles (topMenuStyles) (connect (mapStateToProps, { streamSelect, fetchStreamStat, fetchGameStat }) (TopMenu));

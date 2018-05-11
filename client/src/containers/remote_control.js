@@ -6,11 +6,12 @@ import remoteControlStyles from './../styles/remote_control_styles';
 import { Paper, Popover, Button } from 'material-ui';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormLabel, FormControl, FormControlLabel } from 'material-ui/Form';
-import Icon from 'material-ui/Icon';
+import RemoteIcon from '@material-ui/icons/Timelapse';
+import UpIcon from '@material-ui/icons/ArrowUpward';
 
 
 import periodArray from './../resource/periodArray';
-import { modeSelect } from './../actions/index';
+import { modeSelect, fetchGameStat } from './../actions/index';
 
 class RemoteControl extends Component {
     constructor(props) {
@@ -29,6 +30,7 @@ class RemoteControl extends Component {
     onSelection(event, value) {
         this.props.modeSelect(value);
         this.setState({ check : value });
+        this.props.fetchGameStat(this.props.streamerName, this.props.mode);
     }
 
     componentDidMount() {
@@ -46,17 +48,30 @@ class RemoteControl extends Component {
             anchorEl : null
         });
     }
+
+    scrollToTop() {
+        window.scrollTo(0, 0);
+    }
+
     render() {
         const { classes } = this.props;
         return (
             <Fragment>
+                <Button
+                    className={classes.scrollTopButton}
+                    variant='fab'
+                    color='secondary'
+                    onClick={this.scrollToTop}
+                >
+                    <UpIcon />
+                </Button>
                 <Button 
                     className={classes.remoteButton}
                     variant='fab' 
                     color='primary'
                     onClick={this.openPopover}
                 >
-                    <Icon>edit_icon</Icon>
+                    <RemoteIcon />
                 </Button>
                 <Popover
                     open={Boolean(this.state.anchorEl)}
@@ -90,7 +105,14 @@ class RemoteControl extends Component {
                 </Popover>
             </Fragment>
         );
+    };
+}
+
+function mapStateToProps(state) {
+    return {
+        streamerName : state.streamerName,
+        mode : state.mode
     }
 }
 
-export default withStyles (remoteControlStyles) (connect (null, {modeSelect}) (RemoteControl));
+export default withStyles (remoteControlStyles) (connect (mapStateToProps, { modeSelect, fetchGameStat }) (RemoteControl));

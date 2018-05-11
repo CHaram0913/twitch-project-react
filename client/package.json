@@ -2,6 +2,11 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "proxy" : {
+    "/api/*" : {
+      "target" : "http://127.0.0.1:8000"
+    }
+  },
   "dependencies": {
     "auth0-js": "^9.4.1",
     "axios": "^0.18.0",

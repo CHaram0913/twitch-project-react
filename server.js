@@ -63,10 +63,9 @@ app.use(expressSession({
         }
 }));
 
-app.get('/allStream/:collectionName', async (req, res) => {
+app.get('/api/allStream/:collectionName', async (req, res) => {
     let collectionName = req.params.collectionName;
     let List = mongoose.model(`${collectionName}_logs`, LogSchema);
-    
     try {
         let startEndTimes = await List.aggregate(start_end_time_aggregate);
         let streamStartTimeArray = sort_stream_time(startEndTimes);
@@ -83,7 +82,7 @@ app.get('/allStream/:collectionName', async (req, res) => {
     }
 });
 
-app.get('/gamelist/:collectionName/:mode', async (req, res) => {
+app.get('/api/gamelist/:collectionName/:mode', async (req, res) => {
     let collectionName = req.params.collectionName;
     let mode = req.params.mode;
     let List = mongoose.model(`${collectionName}_logs`, LogSchema);

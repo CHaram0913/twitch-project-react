@@ -1,20 +1,102 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchGameStat } from './../actions/index';
+
+import { ResponsivePie } from '@nivo/pie';
 
 class GameStat extends Component {
-    componentDidMount() {
-        this.props.fetchGameStat(this.props.streamerName, this.props.mode);
-    }
-
-    // componentDidUpdate() {
-    //     this.props.fetchGameStat(this.props.streamerName, 'week');
-    // }
-
     render() {
-        console.log(`${this.props.streamerName}, ${this.props.mode}`);
+        const { gamelist } = this.props;
+
+        if (!gamelist) {
+            return <div>Fetching gamelist...</div>;
+        }
         return (
             <div>
+                <div>
+                <ResponsivePie
+                data={[
+                    {
+                    "id": "lisp",
+                    "label": "lisp",
+                    "value": 398,
+                    "color": "hsl(63, 70%, 50%)"
+                    },
+                    {
+                    "id": "ruby",
+                    "label": "ruby",
+                    "value": 206,
+                    "color": "hsl(358, 70%, 50%)"
+                    },
+                    {
+                    "id": "java",
+                    "label": "java",
+                    "value": 372,
+                    "color": "hsl(260, 70%, 50%)"
+                    },
+                    {
+                    "id": "python",
+                    "label": "python",
+                    "value": 162,
+                    "color": "hsl(172, 70%, 50%)"
+                    },
+                    {
+                    "id": "go",
+                    "label": "go",
+                    "value": 250,
+                    "color": "hsl(289, 70%, 50%)"
+                    },
+                    {
+                    "id": "php",
+                    "label": "php",
+                    "value": 557,
+                    "color": "hsl(14, 70%, 50%)"
+                    },
+                    {
+                    "id": "css",
+                    "label": "css",
+                    "value": 337,
+                    "color": "hsl(1, 70%, 50%)"
+                    }
+                ]}
+                margin={{
+                    "top": 40,
+                    "right": 80,
+                    "bottom": 80,
+                    "left": 80
+                }}
+                innerRadius={0.5}
+                padAngle={0.7}
+                cornerRadius={3}
+                colors="d320c"
+                colorBy="id"
+                borderColor="inherit:darker(0.6)"
+                radialLabelsSkipAngle={10}
+                radialLabelsTextXOffset={6}
+                radialLabelsTextColor="#333333"
+                radialLabelsLinkOffset={0}
+                radialLabelsLinkDiagonalLength={16}
+                radialLabelsLinkHorizontalLength={24}
+                radialLabelsLinkStrokeWidth={1}
+                radialLabelsLinkColor="inherit"
+                slicesLabelsSkipAngle={10}
+                slicesLabelsTextColor="#333333"
+                animate={true}
+                motionStiffness={90}
+                motionDamping={15}
+                legends={[
+                    {
+                        "anchor": "bottom",
+                        "direction": "row",
+                        "translateY": 56,
+                        "itemWidth": 100,
+                        "itemHeight": 14,
+                        "symbolSize": 14,
+                        "symbolShape": "circle"
+                    }
+                ]}
+            />
+                </div>
+                
                 Game Stat
 
                 Lorem ipsum dolor sit amet, per dapibus curabitur ut mauris, est libero aliquam mollis in, dolor tristique, sodales consectetuer anim donec rutrum. Taciti dictum duis proin sollicitudin, non aenean aliquam dolor. Nec vestibulum pede metus tincidunt nulla, pellentesque vivamus sed sed pellentesque placerat. Nec duis mattis magnis pellentesque, aliquet velit viverra donec, fermentum ligula amet, ut vulputate libero. Suspendisse porttitor.
@@ -41,11 +123,8 @@ A dis turpis praesent purus dolor a, pede a justo vel molestie a, leo vel vel ur
 
 function mapStateToProps(state) {
     return { 
-
-        streamerName : state.streamerName,
-        mode : state.mode,
         gamelist : state.gamelist
     }
 }
 
-export default connect (mapStateToProps, { fetchGameStat }) (GameStat);
+export default connect (mapStateToProps) (GameStat);
