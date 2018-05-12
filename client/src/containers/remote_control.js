@@ -11,14 +11,14 @@ import UpIcon from '@material-ui/icons/ArrowUpward';
 
 
 import periodArray from './../resource/periodArray';
-import { modeSelect, fetchGameStat } from './../actions/index';
+import { modeSelect } from './../actions/index';
 
 class RemoteControl extends Component {
     constructor(props) {
         super(props);
 
         this.state = { 
-            check : 'all', 
+            check : 'month', 
             anchorEl : null
         }
 
@@ -30,7 +30,6 @@ class RemoteControl extends Component {
     onSelection(event, value) {
         this.props.modeSelect(value);
         this.setState({ check : value });
-        this.props.fetchGameStat(this.props.streamerName, this.props.mode);
     }
 
     componentDidMount() {
@@ -97,7 +96,12 @@ class RemoteControl extends Component {
                                 onChange={this.onSelection}
                             >
                                 {periodArray.map(time_periods => 
-                                    <FormControlLabel key={time_periods} value={time_periods} control={<Radio />} label={time_periods} />
+                                    <FormControlLabel 
+                                        key={time_periods} 
+                                        value={time_periods} 
+                                        control={<Radio />} 
+                                        label={time_periods}
+                                    />
                                 )}
                             </RadioGroup>
                         </FormControl>
@@ -115,4 +119,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default withStyles (remoteControlStyles) (connect (mapStateToProps, { modeSelect, fetchGameStat }) (RemoteControl));
+export default withStyles (remoteControlStyles) (connect (mapStateToProps, { modeSelect }) (RemoteControl));

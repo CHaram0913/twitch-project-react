@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import history from '../services/history';
 import { mainRoutes } from '../routes';
 import Reboot from 'material-ui/Reboot';
 
+import TopMenu from './../containers/top_menu';
+import RemoteControl from './../containers/remote_control';
+
 /**
  * Pages
  * */
-
 const mainSwitch = (
     <Switch>
         {mainRoutes.map(function (item, index) {
@@ -23,10 +25,16 @@ export default class App extends React.Component {
     render() {
         return (
             <div>
-                <Reboot/>
+                <Reboot />
+                
                 <Router history={history}>
-                    {mainSwitch}
+                    <Fragment>
+                        <TopMenu />
+                        <RemoteControl />
+                        {mainSwitch}
+                    </Fragment>
                 </Router>
+                
             </div>
         );
     }
