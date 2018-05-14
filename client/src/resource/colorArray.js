@@ -14,16 +14,17 @@ const findMatch = (colorArray, key) => {
  };
 
 export const setColor = (gameArray, colorTheme) => {
+    let colorArray = [];
     for (let i = 0; i < gameArray.length; i++) {
         let matchFound = findMatch(colorTheme, gameArray[i]);
-
+        
         if (matchFound) {
-            gameArray[i] = matchFound.color;
+            colorArray.push(matchFound.color);
         } else {
-            gameArray[i] = generateRandomColor();
+            colorArray.push(generateRandomColor());
         }
     }
-    return gameArray;
+    return colorArray;
 };
 
 export const colorSet = [

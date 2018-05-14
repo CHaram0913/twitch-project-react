@@ -76,7 +76,7 @@ app.get('/api/allStream/:collectionName', async (req, res) => {
             allStreamGrouped.push(docs);
         }
 
-        res.send(allStreamGrouped);
+        res.send(allStreamGrouped.reverse());
     } catch(e) {
         res.status(400).send(e.message);
     }

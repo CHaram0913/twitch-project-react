@@ -2,10 +2,6 @@ import _ from 'lodash';
 
 import { colorSet, setColor } from './../resource/colorArray';
 
-const convertCountToMinute = (count) => {
-    return count * 12;
-}
-
 export default function(props) {
     const colorArray = setColor(_.map(props, '_id'), colorSet);
 

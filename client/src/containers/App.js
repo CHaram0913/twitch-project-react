@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import history from '../services/history';
 import { mainRoutes } from '../routes';
-import Reboot from 'material-ui/Reboot';
+import CssBaseline from 'material-ui/CssBaseline';
 
 import TopMenu from './../containers/top_menu';
 import RemoteControl from './../containers/remote_control';
@@ -25,8 +25,7 @@ export default class App extends React.Component {
     render() {
         return (
             <div>
-                <Reboot />
-                
+                <CssBaseline />
                 <Router history={history}>
                     <Fragment>
                         <TopMenu />
@@ -34,7 +33,6 @@ export default class App extends React.Component {
                         {mainSwitch}
                     </Fragment>
                 </Router>
-                
             </div>
         );
     }

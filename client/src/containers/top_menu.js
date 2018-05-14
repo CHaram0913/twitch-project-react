@@ -34,7 +34,7 @@ class TopMenu extends Component {
             <Paper className={classes.root}>
                 <Tabs
                     value={this.state.index}
-                    indicatorColor="#FFEBEE"
+                    indicatorColor='primary'
                     centered
                     className={classes.tabs}
                 >
