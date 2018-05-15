@@ -23,7 +23,8 @@ const { game_list_aggregate_exception } = require('./aggregates/game_list_aggreg
 
 // Query Helper Functions
 const { getStartTimeComp } = require('./query_helper/get_start_time_comparison');
-const { sort_stream_time } = require('./query_helper/stream_start_time_grouping')
+const { sort_stream_time } = require('./query_helper/stream_start_time_grouping');
+const { slice_aggregate } = require('./query_helper/slice_stream_aggregate');
 
 /**
  * Logger Setting
@@ -73,7 +74,8 @@ app.get('/api/allStream/:collectionName', async (req, res) => {
         let allStreamGrouped = [];
         for (let i = 0; i < streamStartTimeArray.length; i++) {
             let docs = await List.aggregate(each_stream_aggregate(streamStartTimeArray[i]));
-            allStreamGrouped.push(docs);
+            let docs_sliced = slice_aggregate(docs)
+            allStreamGrouped.push(docs_sliced);
         }
 
         res.send(allStreamGrouped.reverse());

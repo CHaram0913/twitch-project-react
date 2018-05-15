@@ -33,11 +33,11 @@ const digestProps = (props) => {
     }
 };
 
-const createDatasets = (label, count, color) => {
+const createDatasets = (label1, label2, count, color) => {
     let datasetArray = [];
-    for (let i = 0; i < label.length; i++) {
+    for (let i = 0; i < label1.length; i++) {
         let dataset = {
-            label: label[i],
+            label: [label1[i], label2[i]],
             data: [count[i]],
             backgroundColor: color[i],
             hoverBackgroundColor: color[i]
@@ -50,8 +50,7 @@ const createDatasets = (label, count, color) => {
 export function barData(props) {
     const streamData = digestProps(props);
     const colorArray = setColor(streamData.game_name, colorSet);
-    const datasetsArray = createDatasets(streamData.game_name, streamData.count, colorArray);
-    
+    const datasetsArray = createDatasets(streamData.game_name, streamData.stream_title, streamData.count, colorArray);
     const data = {
         labels: ['Game Played'],
         datasets: datasetsArray
