@@ -3,7 +3,12 @@ import moment from 'moment-timezone';
 export default {
     legend: {
         display: true,
-        width: '12px'
+        width: '12px',
+        labels: {
+            fontColor: 'rgba(252, 255, 255, 0.9)',
+            fontSize: 14
+        },
+        position: 'bottom'
     },
     scales: {
         border: '1px',
@@ -11,17 +16,39 @@ export default {
             id: 'Views',
             position: 'left',
             display: true,
-            gridLines: {display: false},
+            gridLines: {
+                display: false,
+                color: 'rgba(252, 255, 255, 0.9)',
+                lineWidth: 2,
+                drawTicks: false,
+                zeroLineWidth: 2,
+                zeroLineColor: 'rgba(252, 255, 255, 0.9)'
+            },
             ticks: {display: false}
         }, {
             id: 'Follows',
             position: 'right',
             display: true,
-            gridLines: {display: false},
+            gridLines: {
+                display: false,
+                color: 'rgba(252, 255, 255, 0.9)',
+                lineWidth: 2,
+                drawTicks: false,
+                zeroLineWidth: 2,
+                zeroLineColor: 'rgba(252, 255, 255, 0.9)'
+            },
             ticks: {display: false}
         }],
         xAxes: [{
-            gridLines: {display: false},
+            position: 'top',
+            gridLines: {
+                display: false,
+                color: 'rgba(252, 255, 255, 0.9)',
+                lineWidth: 2,
+                drawTicks: false,
+                zeroLineWidth: 2,
+                zeroLineColor: 'rgba(252, 255, 255, 0.9)'
+            },
             type: 'time',
             time: {
                 unit: 'hour',
@@ -30,9 +57,10 @@ export default {
             ticks: {
                 callback: function(t) {
                     return t;
-                }
-            },
-            color: 'rgba(0, 0, 0, 1)'
+                },
+                fontColor: 'rgba(252, 255, 255, 0.9)',
+                fontSize: 14
+            }
         }]
     },
     tooltips: {
