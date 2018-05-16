@@ -1,11 +1,20 @@
 export const pie_time_option = {
+    maintainAspectRatio: false,
     legend: {
         display: false
+    },
+    layout: {
+        padding: {
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0
+        }
     },
     tooltips: {
         callbacks: {
             title: function(t, d){
-                return 'Game Played: Total Duration';
+                return 'Game Played: Total';
             },
             label: function(t, d) {
                 let minuteTotal = d.datasets[0].data[t.index] * 10;
@@ -30,8 +39,17 @@ export const pie_time_option = {
 };
 
 export const pie_view_option = {
+    maintainAspectRatio: false,
     legend: {
         display: false
+    },
+    layout: {
+        padding: {
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0
+        }
     },
     tooltips: {
         callbacks: {
@@ -47,8 +65,4 @@ export const pie_view_option = {
         display: true,
         fontSize: 16
     }
-    // title: {
-    //     display: true,
-    //     text: this.props.streamerName
-    // }
 };

@@ -1,6 +1,7 @@
 import moment from 'moment-timezone';
 
 export default {
+    maintainAspectRatio: false,
     legend: {
         display: true,
         width: '12px',
@@ -9,6 +10,25 @@ export default {
             fontSize: 14
         },
         position: 'bottom'
+    },
+    layout: {
+        padding: {
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0
+        }
+    },
+    elements: {
+        point: {
+            pointStyle: 'star',
+            radius: 5
+        },
+        line: {
+            fill: false,
+            tension: 0.2,
+            borderCapStyle: 'round',
+        }
     },
     scales: {
         border: '1px',
@@ -40,7 +60,7 @@ export default {
             ticks: {display: false}
         }],
         xAxes: [{
-            position: 'top',
+            position: 'bottom',
             gridLines: {
                 display: false,
                 color: 'rgba(252, 255, 255, 0.9)',
@@ -59,7 +79,10 @@ export default {
                     return t;
                 },
                 fontColor: 'rgba(252, 255, 255, 0.9)',
-                fontSize: 14
+                fontSize: 14,
+                maxRotation: 0,
+                minRotation: 0,
+                padding: 5
             }
         }]
     },

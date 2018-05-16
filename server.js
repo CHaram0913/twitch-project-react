@@ -25,6 +25,7 @@ const { game_list_aggregate_exception } = require('./aggregates/game_list_aggreg
 const { getStartTimeComp } = require('./query_helper/get_start_time_comparison');
 const { sort_stream_time } = require('./query_helper/stream_start_time_grouping');
 const { slice_aggregate } = require('./query_helper/slice_stream_aggregate');
+const { filterStreamByLength } = require('./query_helper/filter_stream_by_length');
 
 /**
  * Logger Setting
@@ -77,8 +78,9 @@ app.get('/api/allStream/:collectionName', async (req, res) => {
             let docs_sliced = slice_aggregate(docs)
             allStreamGrouped.push(docs_sliced);
         }
+        let filteredStreams = filterStreamByLength(allStreamGrouped.reverse());
 
-        res.send(allStreamGrouped.reverse());
+        res.send(filteredStreams);
     } catch(e) {
         res.status(400).send(e.message);
     }
@@ -94,7 +96,7 @@ app.get('/api/gamelist/:collectionName/:mode', async (req, res) => {
         let docs = await List.aggregate(game_list_aggregate(start_time_comparison));
         if (docs[0]) {
             res.send(docs);
-        } else if (!docs[0] && mode === 'day'){
+        } else if (!docs[0]){
             let startEndTimes = await List.aggregate(start_end_time_aggregate);
             let streamStartTimeArray = sort_stream_time(startEndTimes);
             let mostRecentStream = streamStartTimeArray[streamStartTimeArray.length - 1];

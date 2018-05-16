@@ -19,7 +19,7 @@ const slice_aggregate = (singleStream) => {
         let prev = 0;
     
         for (let j = 0; j < singleStream[i].at_time.length; j++) {
-            if (singleStream[i].at_time[j].log_time - prev > 25 * 60 * 1000) {
+            if (singleStream[i].at_time[j].log_time - prev > 50 * 60 * 1000) {
                 prev = singleStream[i].at_time[j].log_time;
                 if (j !== 0) {
                     jump[i].push({i, j})

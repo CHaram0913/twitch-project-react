@@ -1,15 +1,32 @@
-export default {
+export default function (props) {
+    let max = props.map(count => count.count).reduce((acc, val) => acc + val);
+    return {
+        maintainAspectRatio: false,
     legend: {
         display: false
+    },
+    layout: {
+        padding: {
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0
+        }
     },
     scales: {
         xAxes: [{
             stacked: true,
-            display: false
+            display: false,
+            ticks: {
+                beginAtZero: true,
+                maxTicksLimit: 2,
+                max: max
+            }
         }],
         yAxes: [{
             stacked: true,
-            display: false
+            display: false,
+            maxBarThickness: 90
         }]
     },
     tooltips: {
@@ -31,5 +48,5 @@ export default {
                 
             }
         }
-    }
+    }}
 };

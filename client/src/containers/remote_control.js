@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll';
 
 import { withStyles } from 'material-ui/styles';
 import remoteControlStyles from './../styles/remote_control_styles';
@@ -49,7 +50,7 @@ class RemoteControl extends Component {
     }
 
     scrollToTop() {
-        window.scrollTo(0, 0);
+        scroll.scrollToTop();
     }
 
     render() {

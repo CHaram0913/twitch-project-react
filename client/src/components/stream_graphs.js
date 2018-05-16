@@ -66,20 +66,14 @@ export function lineData(props) {
         datasets: [{
             label: 'Viewers',
             yAxisID: 'Views',
-            fill: false,
-            lineTension: 0.2,
-            backgroundColor: 'rgba(75,192,192,0.4)',
+            backgroundColor: 'rgb(160, 192, 255)',
             borderColor: 'rgb(102, 153, 255)',
-            borderCapStyle: 'round',
             data: streamData.viewer_count
         }, {
             label: 'Followers',
             yAxisID: 'Follows',
-            fill: false,
-            lineTension: 0.2,
             backgroundColor: 'rgb(255, 26, 179)',
             borderColor: 'rgb(255, 153, 221)',
-            borderCapStyle: 'round',
             data: streamData.follower_count
         }]
     };

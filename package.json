@@ -38,6 +38,7 @@
     "mongoose": "^5.0.7",
     "passport": "^0.4.0",
     "react-chartjs-2": "^2.7.2",
+    "react-scroll": "^1.7.9",
     "recompose": "^0.27.0",
     "winston": "^3.0.0-rc1"
   },

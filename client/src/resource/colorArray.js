@@ -50,7 +50,7 @@ export const colorSet = [
     },
     {
         game : 'Stardew Valley',
-        color : '#C4DFE6'
+        color : '#66FFB3'
     },
     {
         game : 'Overwatch',
@@ -63,5 +63,37 @@ export const colorSet = [
     {
         game : "PLAYERUNKNOWN'S BATTLEGROUNDS",
         color : '#124F2C'
-    }
+    },
+    {
+        game : "Mount & Blade: Warband",
+        color : '#BBBB77'
+    },
+    {
+        game : "Celeste",
+        color : '#99FFFF'
+    },
+    {
+        game : "StarCraft II",
+        color : '#FF3333'
+    },
+    {
+        game : "Princess Maker 5",
+        color : '#33FFCC'
+    },
+    {
+        game : "MapleStory",
+        color : '#FF99FF'
+    },
+    {
+        game : "Cookie Run: OvenBreak",
+        color : '#86592D'
+    },
+    {
+        game : "Slay the Spire",
+        color : '#E65C00'
+    },
+    {
+        game : "Creative",
+        color : '#FFFF80'
+    },
 ];
