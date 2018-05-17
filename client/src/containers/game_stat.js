@@ -36,7 +36,7 @@ class GameStat extends Component {
                 
                 <Grid item xs={12} md={12} lg={5} zeroMinWidth>
                     <Paper className={classes.gamelist} elevation={4}>
-                        <GridList cellHeight={200} cols={4}>
+                        <GridList cellHeight={200} cols={4} className={classes.gridlist}>
                             {game_art_data.map(game => 
                                 <GridListTile key={game.title}>
                                     <img src={game.img} alt={game.title}  />

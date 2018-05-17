@@ -10,8 +10,11 @@ export default
         backgroundColor: 'rgba(40, 44, 52, 1)',
     },
     gamelist: {
-        height: 'auto',
+        height: 410,
         backgroundColor: 'rgba(40, 44, 52, 1)'
+    },
+    gridlist: {
+        height: 410
     },
     tile_bar: {
         textAlign: 'center',

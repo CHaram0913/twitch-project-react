@@ -19,7 +19,7 @@ class RemoteControl extends Component {
         super(props);
 
         this.state = { 
-            check : 'week', 
+            check : 'month', 
             anchorEl : null
         }
 
