@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { animateScroll as scroll } from 'react-scroll';
+import moment from 'moment';
 
 import { withStyles } from 'material-ui/styles';
 import remoteControlStyles from './../styles/remote_control_styles';
@@ -26,6 +27,7 @@ class RemoteControl extends Component {
         this.onSelection = this.onSelection.bind(this);
         this.openPopover = this.openPopover.bind(this);
         this.closePopover = this.closePopover.bind(this);
+        this.createStatusButton = this.createStatusButton.bind(this);
     }
 
     onSelection(event, value) {
@@ -51,6 +53,39 @@ class RemoteControl extends Component {
 
     scrollToTop() {
         scroll.scrollToTop();
+    }
+
+    createStatusButton(stream) {
+        try {
+            let stream_data = stream.data[0]
+            let recent_data = stream_data[stream_data.length - 1].at_time;
+            let latest_log = recent_data[recent_data.length - 1].log_time;
+            if (moment().valueOf() - latest_log < 600000) {
+                return (
+                    <Button 
+                        variant="raised" 
+                        href={`https://www.twitch.tv/${this.props.streamerName}`}
+                        target='_blank'
+                        className={this.props.classes.live_link_online}
+                    >
+                        LIVE
+                    </Button>
+                )
+            } else {
+                return (
+                    <Button 
+                        variant="raised" 
+                        className={this.props.classes.live_link_offline}
+                    >
+                        OFFLINE
+                    </Button>
+                )
+            }
+        } catch (e) {
+            return (
+                <div />
+            )
+        }
     }
 
     render() {
@@ -105,6 +140,7 @@ class RemoteControl extends Component {
                                     />
                                 )}
                             </RadioGroup>
+                            {this.createStatusButton(this.props.streamlist)}
                         </FormControl>
                     </Paper>
                 </Popover>
@@ -116,7 +152,8 @@ class RemoteControl extends Component {
 function mapStateToProps(state) {
     return {
         streamerName : state.streamerName,
-        mode : state.mode
+        mode : state.mode,
+        streamlist : state.streamlist
     }
 }
 
