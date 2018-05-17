@@ -26,7 +26,7 @@ export default function (props) {
         yAxes: [{
             stacked: true,
             display: false,
-            maxBarThickness: 90
+            maxBarThickness: 70
         }]
     },
     tooltips: {

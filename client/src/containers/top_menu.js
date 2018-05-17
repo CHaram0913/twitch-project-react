@@ -39,7 +39,14 @@ class TopMenu extends Component {
                     className={classes.tabs}
                 >
                     {streamerArrayKR.map((streamers, index) => 
-                        <Tab to={`/streamers?streamer=${streamerArray[index]}`} component={Link} key={streamers} label={streamers} onClick={this.onSelection(index)} className={classes.tab} />
+                        <Tab 
+                            key={streamers} 
+                            label={streamers} 
+                            to={`/streamers?streamer=${streamerArray[index]}`} 
+                            component={Link} 
+                            onClick={this.onSelection(index)} 
+                            className={classes.tab} 
+                        />
                     )}
                 </Tabs>      
             </Paper>

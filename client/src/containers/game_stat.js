@@ -4,7 +4,7 @@ import { Doughnut } from 'react-chartjs-2';
 import _ from 'lodash';
 
 import { withStyles } from 'material-ui/styles';
-import { Paper, GridList, GridListTile } from 'material-ui';
+import { Paper, Grid, GridList, GridListTile, GridListTileBar, Hidden } from 'material-ui';
 import gameStatStyles from './../styles/game_stat_styles';
 
 import { fetchGameStat } from './../actions/index';
@@ -22,10 +22,6 @@ class GameStat extends Component {
         }
     }
 
-    imageClick(game_name) {
-        // console.log(game_name);
-    }
-
     render() {
         const { gamelist } = this.props;
         const { classes } = this.props;
@@ -35,28 +31,42 @@ class GameStat extends Component {
         let game_art_data = GameData((_.sortBy(gamelist.data, 'count')).reverse());
 
         return (
-            <Paper className={classes.root} elevation={5}>
 
-                <Paper className={classes.pie} elevation={0}>
-                    <Doughnut data={PieAverageView(gamelist.data)} options={pie_view_option}/>
-                </Paper>
+            <Grid container spacing={8} className={classes.root} direction='row-reverse' alignItems='center'>
+                
+                <Grid item xs={12} md={12} lg={5} zeroMinWidth>
+                    <Paper className={classes.gamelist} elevation={4}>
+                        <GridList cellHeight={200} cols={4}>
+                            {game_art_data.map(game => 
+                                <GridListTile key={game.title}>
+                                    <img src={game.img} alt={game.title}  />
+                                    <GridListTileBar 
+                                        title={game.title} 
+                                        // subtitle={`Time: ${game.duration} \n View: ${game.viewer}`}
+                                        className={classes.tile_bar}
+                                    />
+                                </GridListTile>
+                            )}
+                        </GridList>
+                    </Paper>
+                </Grid>
 
-                <Paper className={classes.pie} elevation={0}>
-                    <Doughnut data={PieStreamTime(gamelist.data)} options={pie_time_option}/>
-                </Paper>
+                <Hidden xsDown>
+                    <Grid item xs={12} md={6} lg={true} zeroMinWidth>
+                        <Paper className={classes.pie} elevation={4}>
+                            <Doughnut data={PieStreamTime(gamelist.data)} options={pie_time_option}/>
+                        </Paper>
+                    </Grid>
 
-                <Paper className={classes.gamelist} elevation={0}>
-                    <GridList cellHeight={170} className={classes.gridList} cols={4}>
-                        {game_art_data.map(game => 
-                            <GridListTile key={game.title}>
-                            <div className={classes.img} onClick={this.imageClick(game.title)}>
-                                <img src={game.img} alt={game.title} />
-                            </div>
-                            </GridListTile>
-                        )}
-                    </GridList>
-                </Paper>
-            </Paper>
+                    <Grid item xs={12} md={6} lg={true} zeroMinWidth>
+                        <Paper className={classes.pie} elevation={4}>
+                            <Doughnut data={PieAverageView(gamelist.data)} options={pie_view_option}/>  
+                        </Paper>
+                    </Grid>
+                </Hidden>
+
+            </Grid>
+
         );
     }
 };

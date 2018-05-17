@@ -1,31 +1,19 @@
 export default 
 {
     root: {
-        height: 400,
-        backgroundColor: 'rgb(40, 44, 52, 1)',
         flexGrow: 1,
-        paddingTop: 20
+        marginTop: '0.5vw',
+        marginBottom: '0.5vw'
     },
     pie: {
-        height: 370,
-        width: 455,
-        backgroundColor: 'rgb(40, 44, 52, 1)',
-        float: 'left',
+        height: '27.5vw',
+        backgroundColor: 'rgba(40, 44, 52, 1)',
     },
     gamelist: {
-        height: 350,
-        backgroundColor: 'rgb(40, 44, 52, 1)',
-        float: 'left',
-        flexGrow: 1,
-        marginLeft: 15,
-        marginTop: 10
+        height: 'auto',
+        backgroundColor: 'rgba(40, 44, 52, 1)'
     },
-    gridList: {
-        height: 350,
-        width: 540
-    },
-    img: {
-        opacity: 1,
-
+    tile_bar: {
+        textAlign: 'center',
     }
 };

@@ -27,9 +27,9 @@ export function fetchGameStat(collectionName, mode) {
     };    
 };
 
-export function fetchStreamStat(collectionName) {
+export function fetchStreamStat(collectionName, mode) {
     return async dispatch => {
-        let response = await axios.get(`/api/allStream/${collectionName}`);
+        let response = await axios.get(`/api/allStream/${collectionName}/${mode}`);
 
         dispatch({
             type : FETCH_STREAM, 

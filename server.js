@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const envResult = require('dotenv').config();
 const {createLogger, format, transports} = require('winston');
 const {combine, timestamp, label, prettyPrint} = format;
+const path = require('path');
 const CONFIGS = process.env.ENV === 'prod' ?
     require('./configs/production') :
     process.env.ENV === 'dev' ?
@@ -65,9 +66,11 @@ app.use(expressSession({
         }
 }));
 
-app.get('/api/allStream/:collectionName', async (req, res) => {
+app.get('/api/allStream/:collectionName/:mode', async (req, res) => {
     let collectionName = req.params.collectionName;
+    let mode = req.params.mode;
     let List = mongoose.model(`${collectionName}_logs`, LogSchema);
+
     try {
         let startEndTimes = await List.aggregate(start_end_time_aggregate);
         let streamStartTimeArray = sort_stream_time(startEndTimes);
@@ -80,7 +83,16 @@ app.get('/api/allStream/:collectionName', async (req, res) => {
         }
         let filteredStreams = filterStreamByLength(allStreamGrouped.reverse());
 
-        res.send(filteredStreams);
+        if (mode === 'day') {
+            res.send(filteredStreams.slice(0, 1)); 
+        } else if (mode === 'week' && filteredStreams.length > 6) {
+            res.send(filteredStreams.slice(0, 7)); 
+        } else if (mode === 'month' && filteredStreams.length > 29) {
+            res.send(filteredStreams.slice(0, 30)); 
+        } else {
+            res.send(filteredStreams); 
+        }
+        
     } catch(e) {
         res.status(400).send(e.message);
     }
@@ -110,6 +122,15 @@ app.get('/api/gamelist/:collectionName/:mode', async (req, res) => {
         res.status(400).send(e.message);
     }
 });
+
+if(process.env.ENV ==='prod'){
+    app.use(express.static(path.resolve(__dirname, 'client', 'build')))
+    
+    app.get('*', (req,res) => {
+        res.sendfile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    });
+}
+
 
 /**
  * Start
