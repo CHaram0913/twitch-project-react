@@ -7,6 +7,8 @@ const envResult = require('dotenv').config();
 const {createLogger, format, transports} = require('winston');
 const {combine, timestamp, label, prettyPrint} = format;
 const path = require('path');
+const moment = require('moment');
+
 const CONFIGS = process.env.ENV === 'prod' ?
     require('./configs/production') :
     process.env.ENV === 'dev' ?
@@ -65,6 +67,32 @@ app.use(expressSession({
             maxAge: CONFIGS.SESSION_LIFE
         }
 }));
+
+app.get('/api/status/:collectionName', async (req, res) => {
+    let collectionName = req.params.collectionName;
+    let List = mongoose.model(`${collectionName}_logs`, LogSchema);
+
+    try {
+        let docs = await List.find();
+        let latest_log_time = docs.reverse()[0].log_time;
+
+        if (moment().valueOf() - latest_log_time < 600000) {
+            let button_status = {
+                status: 'LIVE'
+            };
+            res.send(button_status);
+            
+        } else {
+            let button_status = {
+                status: 'OFFLINE'
+            };
+            res.send(button_status);
+        }
+
+    } catch (e) {
+        res.status(400).send(e.message);
+    }
+});
 
 app.get('/api/allStream/:collectionName/:mode', async (req, res) => {
     let collectionName = req.params.collectionName;
