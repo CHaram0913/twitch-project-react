@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { streamerArray } from './../resource/streamerArray';
-import { STREAMER_SELECTED, MODE_SELECTED, FETCH_GAME_STAT, FETCH_STREAM } from './types';
+import { STREAMER_SELECTED, MODE_SELECTED, FETCH_GAME_STAT, FETCH_STREAM, FETCH_STREAM_STATUS } from './types';
 
 export function streamSelect(streamerIndex) {
     return {
@@ -38,3 +38,13 @@ export function fetchStreamStat(collectionName, mode) {
     };
 };
 
+export function fetchStreamStatus(collectionName) {
+    return async dispatch => {
+        let response = await axios.get(`/api/status/${collectionName}`);
+
+        dispatch({
+            type : FETCH_STREAM_STATUS, 
+            payload : response
+        });
+    };
+};

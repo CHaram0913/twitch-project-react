@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { animateScroll as scroll } from 'react-scroll';
-import moment from 'moment';
 
 import { withStyles } from 'material-ui/styles';
 import remoteControlStyles from './../styles/remote_control_styles';
@@ -13,7 +12,7 @@ import UpIcon from '@material-ui/icons/ArrowUpward';
 
 
 import periodArray from './../resource/periodArray';
-import { modeSelect } from './../actions/index';
+import { modeSelect, fetchStreamStatus } from './../actions/index';
 
 class RemoteControl extends Component {
     constructor(props) {
@@ -33,6 +32,13 @@ class RemoteControl extends Component {
     onSelection(event, value) {
         this.props.modeSelect(value);
         this.setState({ check : value });
+    }
+
+    componentDidUpdate(prevProps) {
+        if ((prevProps.streamerName === this.props.streamerName) && (prevProps.mode === this.props.mode)) {
+        } else {
+            this.props.fetchStreamStatus(this.props.streamerName);
+        }
     }
 
     componentDidMount() {
@@ -55,12 +61,9 @@ class RemoteControl extends Component {
         scroll.scrollToTop();
     }
 
-    createStatusButton(stream) {
+    createStatusButton(status) {
         try {
-            let stream_data = stream.data[0]
-            let recent_data = stream_data[stream_data.length - 1].at_time;
-            let latest_log = recent_data[recent_data.length - 1].log_time;
-            if (moment().valueOf() - latest_log < 600000) {
+            if (status.data.status === 'LIVE') {
                 return (
                     <Button 
                         variant="raised" 
@@ -140,7 +143,7 @@ class RemoteControl extends Component {
                                     />
                                 )}
                             </RadioGroup>
-                            {this.createStatusButton(this.props.streamlist)}
+                            {this.createStatusButton(this.props.status)}
                         </FormControl>
                     </Paper>
                 </Popover>
@@ -153,8 +156,8 @@ function mapStateToProps(state) {
     return {
         streamerName : state.streamerName,
         mode : state.mode,
-        streamlist : state.streamlist
+        status : state.status
     }
 }
 
-export default withStyles (remoteControlStyles) (connect (mapStateToProps, { modeSelect }) (RemoteControl));
+export default withStyles (remoteControlStyles) (connect (mapStateToProps, { modeSelect, fetchStreamStatus }) (RemoteControl));
